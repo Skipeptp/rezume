@@ -54,7 +54,7 @@
     if (metaCountEl) metaCountEl.textContent = 'Фотографий: ' + loadedCount;
   }
 
-  // --- Добавить карточку в сетку --------------------------------------------
+  // --- Добавить карточку в сетку (без подписей) -----------------------------
   function addCard(src, index){
     if (!gridEl) return;
 
@@ -79,20 +79,7 @@
     media.appendChild(img);
     media.appendChild(overlay);
 
-    var meta = document.createElement('div');
-    meta.className = 'album-card-meta';
-
-    var left = document.createElement('span');
-    left.textContent = 'Кадр ' + index;
-
-    var right = document.createElement('span');
-    right.textContent = 'img' + index;
-
-    meta.appendChild(left);
-    meta.appendChild(right);
-
     inner.appendChild(media);
-    inner.appendChild(meta);
     card.appendChild(inner);
 
     gridEl.appendChild(card);
@@ -151,9 +138,12 @@
     document.body.style.overflow = '';
   }
 
+  // кликаем по всей карточке, а не только по img
   if (gridEl){
     gridEl.addEventListener('click', function(e){
-      var img = e.target.closest('img');
+      var card = e.target.closest('.album-card');
+      if (!card) return;
+      var img = card.querySelector('img');
       if (!img) return;
       openLightbox(img.src, img.alt);
     });
