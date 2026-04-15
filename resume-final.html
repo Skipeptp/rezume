@@ -667,6 +667,66 @@
       text-decoration: underline;
     }
 
+
+    /* ===== Portfolio Slider ===== */
+    .portfolio-slider-wrap {
+      position: relative;
+    }
+
+    .portfolio-slider {
+      display: flex;
+      gap: var(--space-4);
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: var(--space-2);
+    }
+
+    .portfolio-slider::-webkit-scrollbar {
+      display: none;
+    }
+
+    .portfolio-slider .project-card {
+      flex: 0 0 clamp(220px, 28vw, 300px);
+      min-width: 0;
+    }
+
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      transition: background var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast);
+      opacity: 0.85;
+      cursor: pointer;
+    }
+
+    .slider-btn:hover {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #fdfdfc;
+      opacity: 1;
+    }
+
+    .slider-btn:disabled {
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    .slider-btn--prev { left: -20px; }
+    .slider-btn--next { right: -20px; }
     /* ===== Process / Contact ===== */
     .steps {
       display: grid;
@@ -1166,75 +1226,127 @@
             Полный список кейсов по запросу · PDF/Behance
           </p>
         </div>
-
-        <div class="portfolio-grid" aria-label="Portfolio projects">
-          <!-- Project 1 -->
-          <article class="project-card" data-category="logo" data-album="logo">
-            <div class="project-thumb">
-              <img data-album-cover="1" src="albums/logo/img1.jpg" alt="Brand identity for specialty coffee roastery" loading="lazy" width="800" height="600">
-              <div class="project-overlay"></div>
-              <div class="project-meta">
-                <div class="project-category" data-i18n="proj1Category">Branding · Packaging</div>
-                <div class="project-title" data-i18n="proj1Title">Coffee Roasters</div>
-              </div>
-            </div>
-            <div class="project-info">
-              <span class="project-year">2025</span>
-              <span class="project-link" data-i18n="projViewMore">Подробнее по запросу</span>
-            </div>
-          </article>
         
-          <!-- Project 2 -->
-          <article class="project-card" data-category="infographic" data-album="infographic">
-            <div class="project-thumb">
-              <img data-album-cover="1" src="albums/infographic/img1.jpg" alt="Landing page design for SaaS startup" loading="lazy" width="800" height="600">
-              <div class="project-overlay"></div>
-              <div class="project-meta">
-                <div class="project-category" data-i18n="proj2Category">Web · Product</div>
-                <div class="project-title" data-i18n="proj2Title">Fintech SaaS</div>
-              </div>
-            </div>
-            <div class="project-info">
-              <span class="project-year">2024</span>
-              <span class="project-link" data-i18n="projViewMore">Подробнее по запросу</span>
-            </div>
-          </article>
+        <div class="portfolio-slider-wrap">
+          <button class="slider-btn slider-btn--prev" id="sliderPrev" aria-label="Назад">&#8592;</button>
+          <button class="slider-btn slider-btn--next" id="sliderNext" aria-label="Вперёд">&#8594;</button>
         
-          <!-- Project 3 -->
-          <article class="project-card" data-category="business" data-album="business">
-            <div class="project-thumb">
-              <img data-album-cover="1" src="albums/business/img1.jpg" alt="Pitch deck slides for startup" loading="lazy" width="800" height="600">
-              <div class="project-overlay"></div>
-              <div class="project-meta">
-                <div class="project-category" data-i18n="proj3Category">Pitch deck</div>
-                <div class="project-title" data-i18n="proj3Title">Startup Deck</div>
-              </div>
-            </div>
-            <div class="project-info">
-              <span class="project-year">2024</span>
-              <span class="project-link" data-i18n="projViewMore">Подробнее по запросу</span>
-            </div>
-          </article>
+          <div class="portfolio-slider" id="portfolioSlider" aria-label="Portfolio projects">
         
-          <!-- Project 4 -->
-          <article class="project-card" data-category="logo" data-album="logo2">
-            <div class="project-thumb">
-              <img data-album-cover="1" src="albums/logo2/img1.jpg" alt="Editorial layout for magazine" loading="lazy" width="800" height="600">
-              <div class="project-overlay"></div>
-              <div class="project-meta">
-                <div class="project-category" data-i18n="proj4Category">Editorial · Layout</div>
-                <div class="project-title" data-i18n="proj4Title">Magazine Spread</div>
+            <!-- Project 1 - Логотипы -->
+            <article class="project-card" data-category="logo" data-album="logo">
+              <div class="project-thumb">
+                <img src="albums/logo/img1.jpg" alt="Brand identity for specialty coffee roastery" loading="lazy" width="800" height="600">
+                <div class="project-overlay"></div>
+                <div class="project-meta">
+                  <div class="project-category" data-i18n="proj1Category">Branding · Packaging</div>
+                  <div class="project-title" data-i18n="proj1Title">Coffee Roasters</div>
+                </div>
               </div>
-            </div>
-            <div class="project-info">
-              <span class="project-year">2023</span>
-              <span class="project-link" data-i18n="projViewMore">Подробнее по запросу</span>
-            </div>
-          </article>
+              <div class="project-info">
+                <span class="project-year">2025</span>
+                <span class="project-link" data-i18n="projViewMore">Подробнее по запросу</span>
+              </div>
+            </article>
+        
+            <!-- Project 2 - Инфографика -->
+            <article class="project-card" data-category="infographic" data-album="infographic">
+              <div class="project-thumb">
+                <img src="albums/infographic/img1.jpg" alt="Infographic" loading="lazy" width="800" height="600">
+                <div class="project-overlay"></div>
+                <div class="project-meta">
+                  <div class="project-category">Web · Product</div>
+                  <div class="project-title">Инфографика</div>
+                </div>
+              </div>
+              <div class="project-info">
+                <span class="project-year">2024</span>
+                <span class="project-link" data-i18n="projViewMore">Подробнее по запросу</span>
+              </div>
+            </article>
+        
+            <!-- Project 3 - Инфографика серия 1 -->
+            <article class="project-card" data-category="infographic" data-album="infographic1">
+              <div class="project-thumb">
+                <img src="albums/infographic1/img1.jpg" alt="Infographic series 1" loading="lazy" width="800" height="600">
+                <div class="project-overlay"></div>
+                <div class="project-meta">
+                  <div class="project-category">Инфографика</div>
+                  <div class="project-title">Инфографика · Серия 1</div>
+                </div>
+              </div>
+              <div class="project-info">
+                <span class="project-year">2024</span>
+                <span class="project-link" data-i18n="projViewMore">Подробнее по запросу</span>
+              </div>
+            </article>
+        
+            <!-- Project 4 - Инфографика серия 2 -->
+            <article class="project-card" data-category="infographic" data-album="infographic2">
+              <div class="project-thumb">
+                <img src="albums/infographic2/img1.jpg" alt="Infographic series 2" loading="lazy" width="800" height="600">
+                <div class="project-overlay"></div>
+                <div class="project-meta">
+                  <div class="project-category">Инфографика</div>
+                  <div class="project-title">Инфографика · Серия 2</div>
+                </div>
+              </div>
+              <div class="project-info">
+                <span class="project-year">2024</span>
+                <span class="project-link" data-i18n="projViewMore">Подробнее по запросу</span>
+              </div>
+            </article>
+        
+            <!-- Project 5 - Инфографика серия 3 -->
+            <article class="project-card" data-category="infographic" data-album="infographic3">
+              <div class="project-thumb">
+                <img src="albums/infographic3/img1.jpg" alt="Infographic series 3" loading="lazy" width="800" height="600">
+                <div class="project-overlay"></div>
+                <div class="project-meta">
+                  <div class="project-category">Инфографика</div>
+                  <div class="project-title">Инфографика · Серия 3</div>
+                </div>
+              </div>
+              <div class="project-info">
+                <span class="project-year">2024</span>
+                <span class="project-link" data-i18n="projViewMore">Подробнее по запросу</span>
+              </div>
+            </article>
+        
+            <!-- Project 6 - Бизнес-кейсы -->
+            <article class="project-card" data-category="business" data-album="business">
+              <div class="project-thumb">
+                <img src="albums/business/img1.jpg" alt="Pitch deck slides for startup" loading="lazy" width="800" height="600">
+                <div class="project-overlay"></div>
+                <div class="project-meta">
+                  <div class="project-category" data-i18n="proj3Category">Pitch deck</div>
+                  <div class="project-title" data-i18n="proj3Title">Startup Deck</div>
+                </div>
+              </div>
+              <div class="project-info">
+                <span class="project-year">2024</span>
+                <span class="project-link" data-i18n="projViewMore">Подробнее по запросу</span>
+              </div>
+            </article>
+        
+            <!-- Project 7 - Логотипы серия 2 -->
+            <article class="project-card" data-category="logo" data-album="logo2">
+              <div class="project-thumb">
+                <img src="albums/logo2/img1.jpg" alt="Logo series 2" loading="lazy" width="800" height="600">
+                <div class="project-overlay"></div>
+                <div class="project-meta">
+                  <div class="project-category" data-i18n="proj4Category">Editorial · Layout</div>
+                  <div class="project-title" data-i18n="proj4Title">Magazine Spread</div>
+                </div>
+              </div>
+              <div class="project-info">
+                <span class="project-year">2023</span>
+                <span class="project-link" data-i18n="projViewMore">Подробнее по запросу</span>
+              </div>
+            </article>
+        
+          </div>
         </div>
-      </div>
-    </section>
-
     <!-- Process -->
     <section id="process" class="fade-in" data-section>
       <div class="container">
@@ -1361,21 +1473,51 @@
     sections.forEach(sec => observer.observe(sec));
 
     // Фильтр портфолио
+    
     const filterButtons = document.querySelectorAll(".filter-btn");
-    const projects = document.querySelectorAll(".project-card");
+    const slider = document.getElementById("portfolioSlider");
+    const btnPrev = document.getElementById("sliderPrev");
+    const btnNext = document.getElementById("sliderNext");
+
+    const SCROLL_STEP = 320;
+
+    function updateArrows() {
+      if (!slider) return;
+      btnPrev.disabled = slider.scrollLeft <= 0;
+      btnNext.disabled = slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 2;
+    }
+
+    if (btnPrev) btnPrev.addEventListener("click", () => {
+      slider.scrollBy({ left: -SCROLL_STEP, behavior: "smooth" });
+      setTimeout(updateArrows, 350);
+    });
+
+    if (btnNext) btnNext.addEventListener("click", () => {
+      slider.scrollBy({ left: SCROLL_STEP, behavior: "smooth" });
+      setTimeout(updateArrows, 350);
+    });
+
+    if (slider) slider.addEventListener("scroll", updateArrows);
 
     filterButtons.forEach(btn => {
       btn.addEventListener("click", () => {
         const filter = btn.getAttribute("data-filter");
         filterButtons.forEach(b => b.setAttribute("data-active", "false"));
         btn.setAttribute("data-active", "true");
-        projects.forEach(card => {
+
+        const cards = slider.querySelectorAll(".project-card");
+        cards.forEach(card => {
           const category = card.getAttribute("data-category");
           const show = filter === "all" || category === filter;
           card.style.display = show ? "" : "none";
         });
+
+        slider.scrollLeft = 0;
+        setTimeout(updateArrows, 50);
       });
     });
+
+setTimeout(updateArrows, 100);
 
     // Простейший i18n: ru/en
     const translations = {
