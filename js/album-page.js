@@ -58,6 +58,8 @@
   function addCard(src, index){
     if (!gridEl) return;
 
+    var isGif = src.toLowerCase().endsWith('.gif');
+
     var card = document.createElement('article');
     card.className = 'album-card';
 
@@ -70,8 +72,13 @@
     var img = document.createElement('img');
     img.src      = src;
     img.alt      = album.title + ' · ' + index;
-    img.loading  = 'lazy';
-    img.decoding = 'async';
+
+    // для GIF — никакого lazy-loading и async decoding,
+    // иначе браузер может заморозить анимацию до скролла
+    if (!isGif) {
+      img.loading  = 'lazy';
+      img.decoding = 'async';
+    }
 
     var overlay = document.createElement('div');
     overlay.className = 'album-card-overlay';

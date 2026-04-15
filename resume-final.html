@@ -1474,6 +1474,8 @@
 
     // Фильтр портфолио
     
+        
+
     const filterButtons = document.querySelectorAll(".filter-btn");
     const slider = document.getElementById("portfolioSlider");
     const btnPrev = document.getElementById("sliderPrev");
@@ -1481,8 +1483,28 @@
 
     const SCROLL_STEP = 320;
 
+    function getVisibleCards() {
+      if (!slider) return [];
+      return Array.from(slider.querySelectorAll(".project-card"))
+        .filter(card => card.style.display !== "none");
+    }
+
     function updateArrows() {
-      if (!slider) return;
+      if (!slider || !btnPrev || !btnNext) return;
+
+      const visibleCards = getVisibleCards();
+      const hasEnoughCards = visibleCards.length >= 4;
+      const canScroll = slider.scrollWidth > slider.clientWidth + 1;
+
+      if (!hasEnoughCards || !canScroll) {
+        btnPrev.style.display = "none";
+        btnNext.style.display = "none";
+        return;
+      }
+
+      btnPrev.style.display = "";
+      btnNext.style.display = "";
+
       btnPrev.disabled = slider.scrollLeft <= 0;
       btnNext.disabled = slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 2;
     }
@@ -1517,7 +1539,8 @@
       });
     });
 
-setTimeout(updateArrows, 100);
+    setTimeout(updateArrows, 100);
+    window.addEventListener("resize", () => setTimeout(updateArrows, 150));
 
     // Простейший i18n: ru/en
     const translations = {
