@@ -24,7 +24,6 @@
   var titleEl      = document.querySelector('[data-album-title]');
   var descEl       = document.querySelector('[data-album-description]');
   var metaCountEl  = document.querySelector('[data-album-meta-count]');
-  var metaFolderEl = document.querySelector('[data-album-meta-folder]');
   var gridEl       = document.querySelector('[data-album-grid]');
 
   // --- Альбом не найден -----------------------------------------------------
@@ -32,7 +31,6 @@
     if (titleEl)      titleEl.textContent = 'Альбом не найден';
     if (descEl)       descEl.textContent  = 'Проверь ссылку или вернись к портфолио.';
     if (metaCountEl)  metaCountEl.textContent = '';
-    if (metaFolderEl) metaFolderEl.textContent = '';
     document.title = 'Альбом не найден · Karpushin Gleb';
     return;
   }
@@ -41,7 +39,6 @@
   document.title = album.title + ' · Альбом · Karpushin Gleb';
   if (titleEl)      titleEl.textContent = album.title;
   if (descEl && album.description) descEl.textContent = album.description;
-  if (metaFolderEl) metaFolderEl.textContent = 'Папка: ' + (album.folder || '');
 
   // --- Настройки загрузки ---------------------------------------------------
   var max    = album.maxImages || 200;
@@ -59,17 +56,46 @@
 
   // --- Добавить карточку в сетку --------------------------------------------
   function addCard(src, index){
-    var figure       = document.createElement('figure');
-    figure.className = 'album-item';
+    if (!gridEl) return;
 
-    var img       = document.createElement('img');
-    img.src       = src;
-    img.alt       = album.title + ' · ' + index;
-    img.loading   = 'lazy';
-    img.decoding  = 'async';
+    var card = document.createElement('article');
+    card.className = 'album-card';
 
-    figure.appendChild(img);
-    if (gridEl) gridEl.appendChild(figure);
+    var inner = document.createElement('div');
+    inner.className = 'album-card-inner';
+
+    var media = document.createElement('div');
+    media.className = 'album-card-media';
+
+    var img = document.createElement('img');
+    img.src      = src;
+    img.alt      = album.title + ' · ' + index;
+    img.loading  = 'lazy';
+    img.decoding = 'async';
+
+    var overlay = document.createElement('div');
+    overlay.className = 'album-card-overlay';
+
+    media.appendChild(img);
+    media.appendChild(overlay);
+
+    var meta = document.createElement('div');
+    meta.className = 'album-card-meta';
+
+    var left = document.createElement('span');
+    left.textContent = 'Кадр ' + index;
+
+    var right = document.createElement('span');
+    right.textContent = 'img' + index;
+
+    meta.appendChild(left);
+    meta.appendChild(right);
+
+    inner.appendChild(media);
+    inner.appendChild(meta);
+    card.appendChild(inner);
+
+    gridEl.appendChild(card);
   }
 
   // --- Загрузка всех картинок -----------------------------------------------

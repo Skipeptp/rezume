@@ -109,24 +109,104 @@
     .album-meta { display:flex; flex-wrap:wrap; gap:var(--space-4); font-size:var(--text-xs); color:var(--color-text-muted); }
 
     .album-section { padding-block:0 var(--space-12); }
-    .album-grid {
-      column-width:260px;
-      column-gap:var(--space-4);
-    }
-    @media (max-width:900px) { .album-grid { column-width:220px; } }
-    @media (max-width:640px) { .album-grid { column-width:100%; } }
-    .album-item {
-      break-inside:avoid;
-      margin-bottom:var(--space-4);
-      border-radius:1rem;
-      overflow:hidden;
-      background-color:var(--color-surface);
-      box-shadow:var(--shadow-sm);
-      cursor:zoom-in;
-    }
-    .album-item img { width:100%; display:block; }
-    .album-empty { font-size:var(--text-sm); color:var(--color-text-muted); margin-top:var(--space-4); }
 
+/* сетка одинаковых карточек */
+.album-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:var(--space-4);
+}
+
+/* карточка альбома */
+.album-card {
+  position:relative;
+  border-radius:1.1rem;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(79,152,163,0.18), transparent 55%),
+    radial-gradient(circle at 120% 100%, rgba(90,75,210,0.18), transparent 55%),
+    linear-gradient(145deg, var(--color-surface), var(--color-surface-2));
+  padding:0.55rem;
+  box-shadow:var(--shadow-sm);
+  overflow:hidden;
+  cursor:zoom-in;
+  transition:
+    transform 200ms cubic-bezier(0.16,1,0.3,1),
+    box-shadow 200ms cubic-bezier(0.16,1,0.3,1),
+    border-color 200ms cubic-bezier(0.16,1,0.3,1),
+    background 220ms ease-out;
+}
+
+.album-card-inner {
+  border-radius:0.9rem;
+  overflow:hidden;
+  background-color:var(--color-surface);
+  position:relative;
+}
+
+/* фиксированное соотношение сторон, все превью одного размера */
+.album-card-media {
+  position:relative;
+  padding-top:72%; /* примерно 4:3 */
+  overflow:hidden;
+}
+
+.album-card-media img {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform:scale(1.02);
+  transition:transform 260ms ease-out, filter 260ms ease-out;
+}
+
+/* эффект подсветки */
+.album-card-overlay {
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(to top, rgba(0,0,0,0.55), transparent 55%),
+    radial-gradient(circle at 10% 0%, rgba(255,255,255,0.18), transparent 55%);
+  mix-blend-mode:soft-light;
+  opacity:0;
+  transition:opacity 220ms ease-out;
+}
+
+/* подпись снизу карточки */
+.album-card-meta {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0.5rem 0.75rem 0.55rem;
+  font-size:var(--text-xs);
+  color:var(--color-text-muted);
+  border-top:1px solid rgba(255,255,255,0.04);
+}
+
+.album-card-meta span:first-child {
+  font-weight:500;
+  color:var(--color-text);
+}
+
+.album-card:hover {
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-md);
+}
+
+.album-card:hover .album-card-media img {
+  transform:scale(1.07);
+  filter:saturate(1.05);
+}
+
+.album-card:hover .album-card-overlay {
+  opacity:1;
+}
+
+.album-empty {
+  font-size:var(--text-sm);
+  color:var(--color-text-muted);
+  margin-top:var(--space-4);
+}
     .lightbox[hidden] { display:none; }
     .lightbox {
       position:fixed; inset:0; z-index:50;
@@ -188,7 +268,6 @@
         <p class="album-description" data-album-description></p>
         <div class="album-meta">
           <span data-album-meta-count>Фотографий: …</span>
-          <span data-album-meta-folder></span>
         </div>
       </div>
     </section>
