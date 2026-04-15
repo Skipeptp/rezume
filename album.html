@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <title>Альбом · Karpushin Gleb</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Просмотр фотоальбома из портфолио." />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&f[]=boska@400,500,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-body: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: "Boska", "Georgia", serif;
+      --text-xs:  clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm:  clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base:clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg:  clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl:  clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --color-bg: #0f0f10;
+      --color-surface: #161618;
+      --color-surface-2: #1f1f22;
+      --color-border: #2b2b30;
+      --color-text: #f2f2f5;
+      --color-text-muted: #8c8c93;
+      --color-text-faint: #5a5a60;
+      --color-primary: #4f98a3;
+      --color-primary-hover: #227f8b;
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-full: 9999px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+      --shadow-md: 0 10px 32px rgba(0,0,0,0.75);
+      --content-width: 1120px;
+      --transition-fast: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; text-size-adjust:none; -webkit-font-smoothing:antialiased; }
+    body {
+      min-height:100vh;
+      font-family:var(--font-body);
+      font-size:var(--text-base);
+      line-height:1.6;
+      color:var(--color-text);
+      background-color:var(--color-bg);
+    }
+    img { max-width:100%; display:block; height:auto; }
+    a { color:inherit; text-decoration:none; }
+    button { font:inherit; border:none; background:none; cursor:pointer; color:inherit; }
+    main { padding-inline:var(--space-4); padding-bottom:var(--space-12); }
+    .container { max-width:var(--content-width); margin-inline:auto; }
+    h1, h2, h3 { font-family:var(--font-display); line-height:1.1; text-wrap:balance; }
+
+    .site-header {
+      position:sticky; top:0; z-index:10;
+      backdrop-filter:blur(16px);
+      background:rgba(8,8,10,0.92);
+      border-bottom:1px solid rgba(255,255,255,0.04);
+    }
+    .header-inner {
+      max-width:var(--content-width);
+      margin-inline:auto;
+      padding:var(--space-3) var(--space-4);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:var(--space-4);
+    }
+    .brand { display:inline-flex; align-items:center; gap:var(--space-2); }
+    .logo-mark {
+      width:32px; height:32px;
+      border-radius:40% 60% 55% 45%;
+      border:1px solid rgba(255,255,255,0.12);
+      display:inline-flex; align-items:center; justify-content:center;
+      background:radial-gradient(circle at 30% 0%, rgba(255,255,255,0.3), transparent 50%),
+                linear-gradient(145deg, #161618, #232327);
+      box-shadow:var(--shadow-sm);
+    }
+    .logo-mark span { width:16px; height:16px; border-radius:40% 60% 55% 45%; background:var(--color-primary); }
+    .brand-text { display:flex; flex-direction:column; }
+    .brand-name { font-size:var(--text-sm); letter-spacing:0.08em; text-transform:uppercase; }
+    .brand-role { font-size:var(--text-xs); color:var(--color-text-muted); }
+    .header-actions { display:flex; align-items:center; gap:var(--space-2); }
+    .btn-ghost {
+      border-radius:var(--radius-full);
+      padding:0.55rem 1.1rem;
+      font-size:var(--text-xs);
+      border:1px solid var(--color-border);
+      background-color:var(--color-surface);
+      display:inline-flex; align-items:center; gap:0.5rem;
+      transition:background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+    }
+    .btn-ghost:hover { background-color:var(--color-primary); color:#fdfdfc; border-color:var(--color-primary); }
+
+    .album-hero { padding-block:clamp(var(--space-10), 12vh, var(--space-16)); }
+    .album-hero-inner { display:flex; flex-direction:column; gap:var(--space-4); }
+    .eyebrow { font-size:var(--text-xs); text-transform:uppercase; letter-spacing:0.18em; color:var(--color-text-muted); }
+    .album-title { font-size:var(--text-2xl); }
+    .album-description { max-width:40rem; font-size:var(--text-sm); color:var(--color-text-muted); }
+    .album-meta { display:flex; flex-wrap:wrap; gap:var(--space-4); font-size:var(--text-xs); color:var(--color-text-muted); }
+
+    .album-section { padding-block:0 var(--space-12); }
+    .album-grid {
+      column-width:260px;
+      column-gap:var(--space-4);
+    }
+    @media (max-width:900px) { .album-grid { column-width:220px; } }
+    @media (max-width:640px) { .album-grid { column-width:100%; } }
+    .album-item {
+      break-inside:avoid;
+      margin-bottom:var(--space-4);
+      border-radius:1rem;
+      overflow:hidden;
+      background-color:var(--color-surface);
+      box-shadow:var(--shadow-sm);
+      cursor:zoom-in;
+    }
+    .album-item img { width:100%; display:block; }
+    .album-empty { font-size:var(--text-sm); color:var(--color-text-muted); margin-top:var(--space-4); }
+
+    .lightbox[hidden] { display:none; }
+    .lightbox {
+      position:fixed; inset:0; z-index:50;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .lightbox-backdrop {
+      position:absolute; inset:0; background:rgba(0,0,0,0.78);
+    }
+    .lightbox-dialog {
+      position:relative; z-index:1;
+      max-width:min(90vw, 1200px);
+      max-height:90vh;
+      border-radius:1rem;
+      overflow:hidden;
+      background-color:#000;
+      box-shadow:var(--shadow-md);
+      display:flex; flex-direction:column;
+    }
+    .lightbox-image { width:100%; height:100%; object-fit:contain; background:#000; }
+    .lightbox-close {
+      position:absolute; top:0.5rem; right:0.5rem;
+      width:32px; height:32px; border-radius:var(--radius-full);
+      background:rgba(0,0,0,0.75); color:#fdfdfc;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.1rem;
+    }
+    .lightbox-close:hover { background:rgba(0,0,0,0.95); }
+
+    .fade-in { opacity:0; transform:translateY(8px); transition:opacity 260ms ease-out, transform 260ms ease-out; }
+    .fade-in.is-visible { opacity:1; transform:translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in { opacity:1; transform:none; }
+      .lightbox-dialog { transition:none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="resume-final.html#portfolio" class="brand">
+        <div class="logo-mark" aria-hidden="true"><span></span></div>
+        <div class="brand-text">
+          <span class="brand-name">Karpushin Gleb</span>
+          <span class="brand-role">Graphic designer</span>
+        </div>
+      </a>
+      <div class="header-actions">
+        <a href="resume-final.html#portfolio" class="btn-ghost">← К портфолио</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="album-hero fade-in" data-section>
+      <div class="container album-hero-inner">
+        <p class="eyebrow">Альбом</p>
+        <h1 class="album-title" data-album-title>Альбом</h1>
+        <p class="album-description" data-album-description></p>
+        <div class="album-meta">
+          <span data-album-meta-count>Фотографий: …</span>
+          <span data-album-meta-folder></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="album-section fade-in" data-section>
+      <div class="container">
+        <div class="album-grid" data-album-grid aria-label="Фотографии альбома"></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="lightbox" data-lightbox hidden>
+    <div class="lightbox-backdrop" data-lightbox-close></div>
+    <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-label="Просмотр фотографии">
+      <button class="lightbox-close" type="button" data-lightbox-close aria-label="Закрыть">×</button>
+      <img class="lightbox-image" data-lightbox-image src="" alt="" loading="lazy" />
+    </div>
+  </div>
+
+  <script src="js/albums-config.js"></script>
+  <script src="js/album-page.js"></script>
+</body>
+</html>
